@@ -7,12 +7,19 @@
 /* global createTag */
 
 const getProject = () => {
-  const project = document.querySelector('[data-testid="board-name-display"]')
+  const project = document.querySelector('[data-testid="board-name-display"]');
+  if (project && project.textContent.trim() === 'Grant Development') {
+    return 'Udvikling';
+  }
   return project ? project.textContent.trim() : ''
 }
+const getCardShortId = () => {
+  const m = location.pathname.match(/\/c\/[^/]+\/(\d+)-/); // .../c/<shortLink>/<idShort>-...
+  return m ? m[1] : null;
+};
 
 const getCardName = () => {
-  return document.querySelector('#card-back-name')?.textContent.trim()
+  return document.querySelector('#card-back-name')?.textContent.trim();
 }
 
 togglbutton.inject(
@@ -20,7 +27,8 @@ togglbutton.inject(
     node: '[data-testid="card-back-add-to-card-button"]:not(.toggl)',
     renderer: (element) => {
       const container = createTag('div', element.classList.toString())
-
+      const title = getCardName();
+      const description = prefixWithCardNumber(document, title);
       const link = togglbutton.createTimerLink({
         className: 'trello',
         description: getCardName,
