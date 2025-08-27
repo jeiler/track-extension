@@ -1,5 +1,5 @@
 {
-  "name": "@toggl/track-extension",
+  "name": "@toggl/track-extension-grant",
   "private": true,
   "version": "2.0.57",
   "description": "Add Toggl Track one-click time tracking to popular web tools.",
